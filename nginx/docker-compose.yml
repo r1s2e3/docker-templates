@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.18.0-alpine
+    container_name: nginx
+    hostname: nginx
+    networks:
+      server-network:
+        aliases:
+          - energetic.local
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - ./config:/etc/nginx
+      - ~/Projects:/projects
+
+networks:
+  server-network:
+    external: true

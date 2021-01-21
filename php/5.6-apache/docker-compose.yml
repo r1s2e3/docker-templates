@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  *:
+    image: php5.6-apache
+    container_name: *
+    ports:
+      - 8000:80
+    networks:
+      - server-network
+    volumes:
+      - .:/var/www/html
+    environment:
+      APACHE_RUN_USER: www
+      APACHE_RUN_GROUP: www
+
