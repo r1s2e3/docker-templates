@@ -4,6 +4,7 @@ services:
   nginx:
     image: nginx:1.18.0-alpine
     container_name: nginx
+    restart: unless-stopped
     hostname: nginx
     networks:
       server-network:
