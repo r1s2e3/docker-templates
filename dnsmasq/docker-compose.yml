@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  dnsmasq:
+    image: jpillora/dnsmasq
+    container_name: dnsmasq
+    restart: unless-stopped
+    hostname: dnsmasq
+    environment:
+      HTTP_USER: ${HTTP_USER} 
+      HTTP_PASS: ${HTTP_PASS}
+    networks:
+      - server-network
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+    ports:
+      - 53:53/udp
+      - 5380:8080
+    volumes:
+      - ./config:/etc/dnsmasq.conf
+
+networks:
+  server-network:
+    external: true
