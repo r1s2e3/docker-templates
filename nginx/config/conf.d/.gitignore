@@ -2,7 +2,7 @@
 *
 !.gitignore
 
-# Allow template and default server config
+# Allow templates and default server config
 !template
+!template_https
 !_default.conf
-

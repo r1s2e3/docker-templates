@@ -16,10 +16,13 @@ services:
         max-size: 10m
     ports:
       - 80:80
+      - 443:443
       - 8080:8080
     volumes:
       - ./config:/etc/nginx
       - ~/Projects:/projects
+      - ./certs/certs:/etc/ssl/certs/selfsigned
+      - ./certs/private:/etc/ssl/private/selfsigned
 
 networks:
   server-network:

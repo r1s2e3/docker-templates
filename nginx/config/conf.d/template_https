@@ -1,0 +1,45 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name *.local;
+
+    root /projects/*/public;
+    
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        root /app/public;
+
+        set $server '*';
+
+        fastcgi_pass    $server:9000;
+        fastcgi_index   index.php;
+        include         fastcgi.conf;
+    }
+}
+
+server {
+    listen 443      ssl;
+    listen [::]:443 ssl;
+
+    ssl_certificate     /etc/ssl/certs/selfsigned/*.local.crt;
+    ssl_certificate_key /etc/ssl/private/selfsigned/*.local.key;
+
+    server_name *.local;
+
+    location / {
+        proxy_pass http://*.local;
+
+        proxy_set_header   Host               $host;                     
+        proxy_set_header   Port               $server_port;              
+        proxy_set_header   X-Real-IP          $remote_addr;              
+        proxy_set_header   X-Forwarded-Proto  $scheme;                   
+        proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+    }
+}
+
