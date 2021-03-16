@@ -5,10 +5,14 @@ services:
     image: php7.3-fpm-alpine
     container_name: *
     hostname: *
+    environment:
+      PHP_IDE_CONFIG: serverName=*
+      DB_HOST: host.docker.internal
     networks:
       - server-network
     volumes:
       - .:/app
+    working_dir: /app
 
 networks:
   server-network:
