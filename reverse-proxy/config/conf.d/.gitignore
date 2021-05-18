@@ -1,0 +1,9 @@
+# Ignore everything but .gitignore
+*
+!.gitignore
+
+# Allow templates and localhost config for mounts
+!template
+!templage_https
+!localhost.conf
+

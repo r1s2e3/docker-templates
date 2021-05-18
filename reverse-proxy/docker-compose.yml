@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.18.0-alpine
+    container_name: nginx
+    restart: unless-stopped
+    hostname: nginx
+    networks:
+      - server-network
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+    ports:
+      - 80:80
+      - 443:443
+      - 8000-8099:8000-8099
+    volumes:
+        # Nginx and server configs
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/conf.d:/etc/nginx/conf.d
+
+        # SSL certificates
+      - ./certs/certs:/etc/ssl/certs/selfsigned
+      - ./certs/private:/etc/ssl/private/selfsigned
+
+        # Mount for serving local files
+      - ./mount:/usr/share/nginx/html/mnt
+
+networks:
+  server-network:
+    external: true

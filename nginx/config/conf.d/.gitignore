@@ -1,8 +1,0 @@
-# Ignore everything but .gitignore
-*
-!.gitignore
-
-# Allow templates and default server config
-!template
-!template_https
-!_default.conf
