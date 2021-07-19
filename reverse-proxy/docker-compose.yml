@@ -15,7 +15,7 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8000-8099:8000-8099
+      - 8001-8100:8001-8100
     volumes:
         # Nginx and server configs
       - ./config/nginx.conf:/etc/nginx/nginx.conf
